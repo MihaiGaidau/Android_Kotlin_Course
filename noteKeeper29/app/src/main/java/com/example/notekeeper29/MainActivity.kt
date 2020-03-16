@@ -67,6 +67,18 @@ class MainActivity : AppCompatActivity() {
     private fun moveNext() {
         ++notePosition
         displayNote()
+        invalidateOptionsMenu()
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (notePosition >= DataManager.notes.lastIndex){
+            val menuItem = menu?.findItem(R.id.action_next)
+            if (menuItem != null){
+                menuItem.icon = getDrawable(R.drawable.ic_block_white_24)
+                menuItem.isEnabled = false
+            }
+        }
+//        p?.name ?: "XX" = if p != null and p.name != null then return p.name else return XX
+        return super.onPrepareOptionsMenu(menu)
+    }
 }
