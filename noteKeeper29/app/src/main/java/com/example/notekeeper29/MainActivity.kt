@@ -1,13 +1,12 @@
 package com.example.notekeeper29
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.example.notekeeper29.model.CourseInfo
-import com.example.notekeeper29.model.EXTRA_NOTE_POSITION
+import com.example.notekeeper29.model.NOTE_POSITION
 import com.example.notekeeper29.model.NoteInfo
 import com.example.notekeeper29.model.POSITION_NOT_SET
 
@@ -30,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item, DataManager.courses.values.toList())
         spinnerCourses.adapter = adapterCourses
 
-        notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
+        notePosition = savedInstanceState?.getInt(NOTE_POSITION) ?:
+            intent.getIntExtra(NOTE_POSITION, POSITION_NOT_SET)
         if (notePosition != POSITION_NOT_SET)
             displayNote()
         else{
@@ -97,5 +97,11 @@ class MainActivity : AppCompatActivity() {
         }
 //        p?.name ?: "XX" = if p != null and p.name != null then return p.name else return XX
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(NOTE_POSITION, notePosition)
+
     }
 }
