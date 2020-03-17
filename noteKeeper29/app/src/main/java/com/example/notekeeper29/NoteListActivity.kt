@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.notekeeper29.model.EXTRA_NOTE_POSITION
+import com.example.notekeeper29.model.NoteInfo
 
 import kotlinx.android.synthetic.main.activity_note_list.*
 import kotlinx.android.synthetic.main.content_note_list.*
@@ -29,5 +30,10 @@ class NoteListActivity : AppCompatActivity() {
             activityIntent.putExtra(EXTRA_NOTE_POSITION, position)
             startActivity(activityIntent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (listNotes.adapter as ArrayAdapter<NoteInfo>).notifyDataSetChanged()
     }
 }

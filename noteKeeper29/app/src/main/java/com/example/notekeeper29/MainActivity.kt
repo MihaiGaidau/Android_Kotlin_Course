@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import com.example.notekeeper29.model.CourseInfo
 import com.example.notekeeper29.model.EXTRA_NOTE_POSITION
+import com.example.notekeeper29.model.NoteInfo
 import com.example.notekeeper29.model.POSITION_NOT_SET
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         notePosition = intent.getIntExtra(EXTRA_NOTE_POSITION, POSITION_NOT_SET)
         if (notePosition != POSITION_NOT_SET)
             displayNote()
+        else{
+            DataManager.notes.add(NoteInfo())
+            notePosition = DataManager.notes.lastIndex
+        }
 
     }
 
